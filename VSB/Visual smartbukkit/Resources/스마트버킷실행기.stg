@@ -1,0 +1,44 @@
+@echo off
+title 파란닌자 맞춤 실행기
+for /f "tokens=1 usebackq" %%a in ("%appdata%\smartbukkit\color.stg") do ( color %%a )
+:main
+SET BINDIR=%~dp0
+CD /D "%BINDIR%"
+cls
+echo 제작 : 파란닌자 (http://geon08.blog.me)
+echo 관리기의 버킷관련메뉴에서 색상을 선택하실수 있습니다.
+echo.
+pause
+:start
+cls
+if not exist "craftbukkit*.jar" (
+echo 버킷파일이 없습니다. 
+echo 비주얼 스마트버킷을 실행시켜서 버킷파일을 다운로드받은후
+echo 다시 시도해주세요.
+pause
+exit
+)
+cls
+if exist "%ProgramFiles%\Java\jre7\bin\java.exe" goto 327
+if exist "%ProgramFiles%\Java\jre6\bin\java.exe" goto 326
+if exist "%ProgramFiles(x86)%\Java\jre7\bin\java.exe" goto 647
+if exist "%ProgramFiles(x86)%\Java\jre6\bin\java.exe" goto 646
+goto fail
+:327
+"%ProgramFiles%\Java\jre7\bin\java.exe" -Xms1024M -Xmx1024M -jar craftbukkit*.jar
+goto exit
+:326
+"%ProgramFiles%\Java\jre6\bin\java.exe" -Xms1024M -Xmx1024M -jar craftbukkit*.jar
+goto exit
+:647
+"%ProgramFiles(x86)%\Java\jre7\bin\java.exe" -Xms1024M -Xmx1024M -jar craftbukkit*.jar
+goto exit
+:646
+"%ProgramFiles(x86)%\Java\jre6\bin\java.exe" -Xms1024M -Xmx1024M -jar craftbukkit*.jar
+goto exit
+:fail
+cls
+echo 자바가 설치되어있지 않는거 같군요..
+:exit
+title 가동중지됨
+pause
